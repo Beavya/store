@@ -10,6 +10,7 @@
         </template>
         <template v-else>
           <router-link to="/login">Вход</router-link>
+          <router-link to="/register">Регистрация</router-link>
         </template>
       </div>
     </div>

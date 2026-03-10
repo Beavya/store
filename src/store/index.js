@@ -16,29 +16,22 @@ export default createStore({
   actions: {
     AUTH_REQUEST: ({ commit }, user) => {
       return new Promise((resolve, reject) => {
-        if (user.username === 'test' && user.password === '123') {
-          const fakeToken = 'test-token-' + Date.now();
-          commit('AUTH_SUCCESS', fakeToken);
-          localStorage.setItem('myAppToken', fakeToken);
-          resolve();
-        } else {
-          loginRequest(user)
-            .then((token) => {
-              commit('AUTH_SUCCESS', token);
-              localStorage.setItem('myAppToken', token);
-              resolve();
-            })
-            .catch((error) => {
-              commit('AUTH_ERROR');
-              localStorage.removeItem('myAppToken');
-              reject(error);
-            });
-        }
+        loginRequest(user)
+          .then((token) => {
+            commit('AUTH_SUCCESS', token);
+            localStorage.setItem('myAppToken', token);
+            resolve();
+          })
+          .catch((error) => {
+            commit('AUTH_ERROR');
+            localStorage.removeItem('myAppToken');
+            reject(error);
+          });
       });
     },
     AUTH_LOGOUT: ({ commit, state }) => {
       return new Promise((resolve, reject) => {
-        if (state.token && !state.token.startsWith('test-')) {
+        if (state.token) {
           logoutRequest(state.token)
             .then(() => {
               commit('AUTH_ERROR');

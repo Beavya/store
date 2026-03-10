@@ -1,12 +1,21 @@
 <template>
   <form class="login" @submit.prevent="login">
-    <h1>Sign in</h1>
-    <label>User name</label>
-    <input type="text" required v-model="username" />
-    <label>Password</label>
+    <h1>Авторизация</h1>
+    
+    <div v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    
+    <label>Email</label>
+    <input type="email" required v-model="email" />
+    <label>Пароль</label>
     <input type="password" required v-model="password" />
     <hr/>
-    <button type="submit">Login</button>
+    <button type="submit">Войти</button>
+    
+    <p class="register-link">
+      Нет аккаунта? <router-link to="/register">Регистрация</router-link>
+    </p>
   </form>
 </template>
 
@@ -14,20 +23,24 @@
 export default {
   data() {
     return {
-      username: "",
-      password: ""
+      email: "",
+      password: "",
+      errorMessage: ""
     }
   },
   methods: {
     login() {
+      this.errorMessage = "";
+      
       const userData = {
-        username: this.username,
+        email: this.email,
         password: this.password
       }
+      
       this.$store.dispatch('AUTH_REQUEST', userData)
         .then(() => this.$router.push('/'))
         .catch((error) => {
-          alert('Ошибка входа. Проверьте логин и пароль.');
+          this.errorMessage = 'Ошибка входа. Проверьте email и пароль.';
         });
     }
   }
@@ -81,5 +94,25 @@ export default {
 
 .login button:hover {
   background: #3aa876;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #42b983;
+  text-decoration: none;
+}
+
+.error-message {
+  background-color: #ff4444;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 </style>
