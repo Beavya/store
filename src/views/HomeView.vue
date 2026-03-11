@@ -2,7 +2,7 @@
   <div class="home">
     <h1>Каталог товаров</h1>
     
-    <div class="products-grid">
+    <div class="products">
       <ProductCard 
         v-for="product in products" 
         :key="product.id"
@@ -38,19 +38,20 @@ export default {
 <style scoped>
 .home {
   padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .home h1 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #333;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+.products {
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1060px;
 }
 </style>

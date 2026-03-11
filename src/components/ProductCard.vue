@@ -41,13 +41,13 @@ export default {
 
 <style scoped>
 .product-card {
+  width: 250px;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 15px;
   background: white;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .product-card h3 {
