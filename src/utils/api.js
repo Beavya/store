@@ -1,4 +1,4 @@
-const API = 'http://lifestealer86.ru/api-shop';
+const API = process.env.VUE_APP_API;
 
 
 export const loginRequest = (user) => {
@@ -54,6 +54,28 @@ export const signupRequest = (userData) => {
       .then((result) => {
         if (result.data && result.data.user_token) {
           resolve(result.data.user_token);
+        } else {
+          reject(result);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const productsRequest = () => {
+  return new Promise((resolve, reject) => {
+    fetch(`${API}/products`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {      
+        if (result.data) {
+          resolve(result.data);
         } else {
           reject(result);
         }

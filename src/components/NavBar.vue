@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="nav-container">
-      <router-link to="/" class="logo">Internet Shop</router-link>
+      <router-link to="/" class="logo">Просто купить</router-link>
       
       <div class="nav-links">
         <template v-if="isAuthenticated">
