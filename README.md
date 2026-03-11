@@ -1,19 +1,25 @@
-# store
+## 🚀 Установка и запуск
 
-## Project setup
+### 1. Клонирование репозитория
+```bash
+git clone https://github.com/Beavya/store.git
+cd store
 ```
+
+### 2. Установка зависимостей
+```bash
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
+### 4. Запуск в режиме разработки
+```bash
 npm run serve
 ```
+После запуска откройте браузер по адресу: `http://localhost:8080`
 
-### Compiles and minifies for production
-```
+## 📦 Сборка проекта
+
+### Для продакшена
+```bash
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
