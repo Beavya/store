@@ -1,13 +1,13 @@
 <template>
   <div class="home">
+    <div v-if="message" class="message success">
+      {{ message }}
+    </div>
+    
     <h1>Каталог товаров</h1>
     
     <div class="products">
-      <ProductCard 
-        v-for="product in products" 
-        :key="product.id"
-        :product="product"
-      />
+      <ProductCard v-for="product in products" :key="product.id" :product="product" @product-added="showMessage"/>
     </div>
   </div>
 </template>
@@ -23,14 +23,26 @@ export default {
   },
   data() {
     return {
-      products: []
+      products: [],
+      message: ''
     }
   },
   created() {
-    productsRequest()
-      .then((data) => {
-        this.products = data
-      });
+    this.fetchProducts();
+  },
+  methods: {
+    fetchProducts() {
+      productsRequest()
+        .then((data) => {
+          this.products = data
+        });
+    },
+    showMessage(text) {
+      this.message = text;
+      setTimeout(() => {
+        this.message = '';
+      }, 3000);
+    }
   }
 }
 </script>
@@ -44,7 +56,13 @@ export default {
   gap: 20px;
 }
 
-.home h1 {
+.message.success {
+  background-color: #42b983;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 1060px;
   text-align: center;
 }
 

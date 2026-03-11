@@ -33,7 +33,10 @@ export default {
   methods: {
     addToCart() {
       const token = this.$store.state.token;
-      addToCartRequest(this.product.id, token);
+      addToCartRequest(this.product.id, token)
+        .then(() => {
+          this.$emit('product-added', 'Товар добавлен в корзину');
+        });
     }
   }
 }

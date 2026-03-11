@@ -8,22 +8,12 @@
     
     <div>
       <label>Email</label>
-      <input 
-        type="email" 
-        required 
-        v-model="email" 
-        :class="{ 'error-input': errorMessage }"
-      />
+      <input type="email" required v-model="email" class="{ 'error-input': errorMessage }"/>
     </div>
 
     <div>
       <label>Пароль</label>
-      <input 
-        type="password" 
-        required 
-        v-model="password" 
-        :class="{ 'error-input': errorMessage }"
-      />
+      <input type="password" required v-model="password" :class="{ 'error-input': errorMessage }"/>
     </div>
     
     <button type="submit">Войти</button>

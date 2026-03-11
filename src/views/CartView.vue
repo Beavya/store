@@ -2,6 +2,10 @@
   <div class="cart">
     <h1>Корзина</h1>
     
+    <div v-if="message.text" class="message success">
+      {{ message.text }}
+    </div>
+    
     <div v-if="groupedItems.length === 0" class="empty-cart">
       Корзина пуста
     </div>
@@ -15,12 +19,8 @@
           <p class="price">{{ group.price }} ₽</p>
           
           <div class="quantity-controls">
-            <button 
-              v-if="group.count > 1" 
-              @click="decreaseQuantity(group)" 
-              class="qty-btn"
-            >−</button>
-            <span class="quantity">{{ group.count }}</span>
+            <button v-if="group.count > 1" @click="decreaseQuantity(group)" class="qty-btn">−</button>
+            <span>{{ group.count }}</span>
             <button @click="increaseQuantity(group)" class="qty-btn">+</button>
             <button @click="removeGroup(group)" class="remove-btn">Удалить</button>
           </div>
@@ -28,7 +28,7 @@
       </div>
       
       <div class="cart-total">
-        <strong>Итого:</strong> {{ totalPrice }} ₽
+        <b>Итого: {{ totalPrice }} ₽ </b>
       </div>
     </div>
   </div>
@@ -41,7 +41,8 @@ export default {
   name: 'CartView',
   data() {
     return {
-      cartItems: []
+      cartItems: [],
+      message: { text: '' }
     }
   },
   computed: {
@@ -80,10 +81,17 @@ export default {
           this.cartItems = data
         });
     },
+    showMessage(text) {
+      this.message.text = text;
+      setTimeout(() => {
+        this.message.text = '';
+      }, 3000);
+    },
     increaseQuantity(group) {
       const token = this.$store.state.token;
       addToCartRequest(group.product_id, token)
         .then(() => {
+          this.showMessage('Товар добавлен в корзину');
           this.fetchCart();
         });
     },
@@ -92,6 +100,7 @@ export default {
       const cartId = group.cartIds[group.cartIds.length - 1];
       removeFromCartRequest(cartId, token)
         .then(() => {
+          this.showMessage('Товар удален из корзины');
           this.fetchCart();
         });
     },
@@ -102,6 +111,7 @@ export default {
       );
       Promise.all(promises)
         .then(() => {
+          this.showMessage('Товар удален из корзины');
           this.fetchCart();
         });
     }
@@ -111,15 +121,22 @@ export default {
 
 <style scoped>
 .cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
 }
 
-.cart h1 {
+.message.success {
+  background-color: #42b983;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
   text-align: center;
-  margin-bottom: 30px;
-  color: #333;
 }
 
 .cart-item {
@@ -127,37 +144,29 @@ export default {
   gap: 20px;
   padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  background: white;
 }
 
 .cart-item img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 4px;
 }
 
 .item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   flex: 1;
-}
-
-.item-info h3 {
-  margin: 0 0 10px 0;
-  color: #333;
 }
 
 .description {
   color: #666;
-  margin-bottom: 10px;
 }
 
 .price {
-  font-size: 1.2rem;
+  font-size: 18px;
   font-weight: bold;
   color: #42b983;
-  margin-bottom: 10px;
 }
 
 .quantity-controls {
@@ -171,18 +180,12 @@ export default {
   height: 30px;
   border: 1px solid #ddd;
   background: white;
-  border-radius: 4px;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 18px;
 }
 
 .qty-btn:hover {
   background: #f5f5f5;
-}
-
-.quantity {
-  min-width: 30px;
-  text-align: center;
 }
 
 .remove-btn {
@@ -190,28 +193,26 @@ export default {
   color: white;
   border: none;
   padding: 5px 10px;
-  border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px;
 }
 
 .remove-btn:hover {
   background: #cc0000;
 }
 
+.cart-items{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .cart-total {
   text-align: right;
-  font-size: 1.3rem;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 5px;
-  margin-top: 20px;
+  font-size: 18px;
 }
 
 .empty-cart {
   text-align: center;
-  padding: 50px;
-  font-size: 1.2rem;
-  color: #666;
+  font-size: 18px;
 }
 </style>
