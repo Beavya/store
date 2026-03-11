@@ -28,10 +28,7 @@
     </div>
     
     <button type="submit">Зарегистрироваться</button>
-    
-    <p class="login-link">
-      Уже есть аккаунт? <router-link to="/login">Войти</router-link>
-    </p>
+    <button type="button" @click="$router.push('/')" class="back-btn">Назад</button>
   </form>
 </template>
 
@@ -118,20 +115,24 @@ export default {
   background: #3aa876;
 }
 
-.login-link {
-  text-align: center;
-  font-size: 14px;
-}
-
-.login-link a {
-  color: #42b983;
-  text-decoration: none;
-}
-
 .error-message {
   background-color: #ff4444;
   color: white;
   padding: 10px;
   text-align: center;
+}
+
+.register .back-btn {
+  width: fit-content;
+  padding: 5px;
+  background: #666;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.register .back-btn:hover {
+  background: #555;
 }
 </style>

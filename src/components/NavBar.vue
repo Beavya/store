@@ -5,7 +5,6 @@
       
       <div class="nav-links">
         <template v-if="isAuthenticated">
-          <router-link to="/">Главная</router-link>
           <router-link to="/cart">Корзина</router-link>
           <button @click="logout" class="logout-btn">Выйти</button>
         </template>
@@ -42,7 +41,7 @@ export default {
 <style scoped>
 .navbar {
   background-color: #42b983;
-  padding: 1rem 0;
+  padding: 20px 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -57,7 +56,7 @@ export default {
 
 .logo {
   color: white;
-  font-size: 1.5rem;
+  font-size: 25px;
   font-weight: bold;
   text-decoration: none;
 }
@@ -71,7 +70,6 @@ export default {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-weight: 500;
 }
 
 .nav-links a:hover {
@@ -83,9 +81,8 @@ export default {
   border: 1px solid white;
   color: white;
   padding: 5px 15px;
-  border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .logout-btn:hover {

@@ -43,32 +43,28 @@ export default {
 .product-card {
   width: 250px;
   border: 1px solid #ddd;
-  border-radius: 5px;
   padding: 15px;
-  background: white;
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
 .product-card h3 {
-  margin: 0 0 10px 0;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 18px;
 }
 
 .description {
   color: #666;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 15px;
   flex-grow: 1;
-  margin-bottom: 10px;
 }
 
 .price {
-  font-size: 1.3rem;
+  font-size: 18px;
   font-weight: bold;
   color: #42b983;
-  margin: 10px 0;
+  margin: 10px 0 0 0;
 }
 
 .add-to-cart-btn {
@@ -76,9 +72,8 @@ export default {
   color: white;
   border: none;
   padding: 8px;
-  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 14px;
 }
 
 .add-to-cart-btn:hover {
