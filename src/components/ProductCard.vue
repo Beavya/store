@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { addToCartRequest } from '@/utils/api'
+
 export default {
   name: 'ProductCard',
   props: {
@@ -28,6 +30,12 @@ export default {
       return this.$store.getters.isAuthenticated
     }
   },
+  methods: {
+    addToCart() {
+      const token = this.$store.state.token;
+      addToCartRequest(this.product.id, token);
+    }
+  }
 }
 </script>
 

@@ -6,6 +6,7 @@
       <div class="nav-links">
         <template v-if="isAuthenticated">
           <router-link to="/">Главная</router-link>
+          <router-link to="/cart">Корзина</router-link>
           <button @click="logout" class="logout-btn">Выйти</button>
         </template>
         <template v-else>

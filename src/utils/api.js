@@ -1,6 +1,5 @@
 const API = process.env.VUE_APP_API;
 
-
 export const loginRequest = (user) => {
   return new Promise((resolve, reject) => {
     fetch(`${API}/login`, {
@@ -28,13 +27,7 @@ export const logoutRequest = (token) => {
       },
     })
       .then((response) => response.json())
-      .then((result) => {
-        if (result.data && result.data.message === 'logout') {
-          resolve(result.data);
-        } else {
-          reject(result);
-        }
-      })
+      .then((result) => resolve(result.data))
       .catch((error) => {
         reject(error);
       });
@@ -51,13 +44,7 @@ export const signupRequest = (userData) => {
       body: JSON.stringify(userData),
     })
       .then((response) => response.json())
-      .then((result) => {
-        if (result.data && result.data.user_token) {
-          resolve(result.data.user_token);
-        } else {
-          reject(result);
-        }
-      })
+      .then((result) => resolve(result.data.user_token))
       .catch((error) => {
         reject(error);
       });
@@ -73,13 +60,57 @@ export const productsRequest = () => {
       },
     })
       .then((response) => response.json())
-      .then((result) => {      
-        if (result.data) {
-          resolve(result.data);
-        } else {
-          reject(result);
-        }
-      })
+      .then((result) => resolve(result.data))
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const addToCartRequest = (productId, token) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${API}/cart/${productId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => resolve(result.data))
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const getCartRequest = (token) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${API}/cart`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => resolve(result.data))
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const removeFromCartRequest = (cartId, token) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${API}/cart/${cartId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => resolve(result.data))
       .catch((error) => {
         reject(error);
       });

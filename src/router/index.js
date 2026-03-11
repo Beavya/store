@@ -35,6 +35,12 @@ const routes = [
     name: 'register',
     component: () => import('../components/Register.vue'),
     beforeEnter: ifNotAuthenticated,
+  },
+  {
+    path: '/cart',                          
+    name: 'cart',
+    component: () => import('../views/CartView.vue'),
+    beforeEnter: ifAuthenticated,
   }
 ];
 

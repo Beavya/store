@@ -4,6 +4,7 @@ import { loginRequest, logoutRequest } from '@/utils/api'
 export default createStore({
   state: {
     token: localStorage.getItem('myAppToken') || '',
+    cart: []
   },
   mutations: {
     AUTH_SUCCESS(state, token) {
@@ -11,6 +12,11 @@ export default createStore({
     },
     AUTH_ERROR(state) {
       state.token = ''
+    },
+    ADD_TO_CART(state, productId) {
+      if (!state.cart.includes(productId)) {
+        state.cart.push(productId);
+      }
     }
   },
   actions: {
@@ -52,6 +58,7 @@ export default createStore({
     }
   },
   getters: {
-    isAuthenticated: (state) => !!state.token
+    isAuthenticated: (state) => !!state.token,
+    isInCart: (state) => (productId) => state.cart.includes(productId)
   }
 })
