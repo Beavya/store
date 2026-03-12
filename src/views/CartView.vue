@@ -30,6 +30,8 @@
       <div class="cart-total">
         <b>Итого: {{ totalPrice }} ₽ </b>
       </div>
+
+      <button type="button" @click="$router.push('/')" class="back-btn">Назад</button>
     </div>
   </div>
 </template>
@@ -214,5 +216,19 @@ export default {
 .empty-cart {
   text-align: center;
   font-size: 18px;
+}
+
+.back-btn {
+  width: fit-content;
+  padding: 5px;
+  background: #666;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  background: #555;
 }
 </style>
